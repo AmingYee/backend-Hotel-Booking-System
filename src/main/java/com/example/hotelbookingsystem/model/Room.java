@@ -2,6 +2,7 @@ package com.example.hotelbookingsystem.model;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -11,12 +12,31 @@ public class Room {
     private Long id;
     private String roomNumber;
     private int numberOfBeds;
+    private LocalDateTime created;
+    private LocalDateTime updated;
+
     @ManyToOne
     @JoinColumn(name = "hotel_id")
     private Hotel hotel;
 
     @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
     private List<Reservation> reservations;
+
+    public LocalDateTime getCreated() {
+        return created;
+    }
+
+    public void setCreated(LocalDateTime created) {
+        this.created = created;
+    }
+
+    public LocalDateTime getUpdated() {
+        return updated;
+    }
+
+    public void setUpdated(LocalDateTime updated) {
+        this.updated = updated;
+    }
 
     public Long getId() {
         return id;

@@ -10,6 +10,9 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private LocalDateTime reservationDate;
+    private LocalDateTime created;
+    private LocalDateTime updated;
+
     @ManyToOne
     @JoinColumn(name = "room_id")
     private Room room;
@@ -17,6 +20,22 @@ public class Reservation {
     @ManyToOne
     @JoinColumn(name = "guest_id")
     private Guest guest;
+
+    public LocalDateTime getCreated() {
+        return created;
+    }
+
+    public void setCreated(LocalDateTime created) {
+        this.created = created;
+    }
+
+    public LocalDateTime getUpdated() {
+        return updated;
+    }
+
+    public void setUpdated(LocalDateTime updated) {
+        this.updated = updated;
+    }
 
     public Long getId() {
         return id;
