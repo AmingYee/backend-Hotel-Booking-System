@@ -1,25 +1,38 @@
 package com.example.hotelbookingsystem.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-public class Guest {
+public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
+    private LocalDateTime created;
+    private LocalDateTime updated;
     private String username;
+    private String pwd;
+    private String role;
     private String firstName;
     private String lastName;
     private String email;
     private String phoneNumber;
-    private LocalDateTime created;
-    private LocalDateTime updated;
 
-    @OneToMany(mappedBy = "guest", cascade = CascadeType.ALL)
-    private List<Reservation> reservations;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "client")
+    @JsonBackReference(value = "client")
+    private Set<Reservation> reservations = new HashSet<>();
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public LocalDateTime getCreated() {
         return created;
@@ -37,20 +50,28 @@ public class Guest {
         this.updated = updated;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public String getUsername() {
         return username;
     }
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getPwd() {
+        return pwd;
+    }
+
+    public void setPwd(String pwd) {
+        this.pwd = pwd;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public String getFirstName() {
@@ -85,11 +106,11 @@ public class Guest {
         this.phoneNumber = phoneNumber;
     }
 
-    public List<Reservation> getReservations() {
+    public Set<Reservation> getReservations() {
         return reservations;
     }
 
-    public void setReservations(List<Reservation> reservations) {
+    public void setReservations(Set<Reservation> reservations) {
         this.reservations = reservations;
     }
 }

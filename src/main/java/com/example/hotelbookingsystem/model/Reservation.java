@@ -1,5 +1,6 @@
 package com.example.hotelbookingsystem.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -15,11 +16,13 @@ public class Reservation {
 
     @ManyToOne
     @JoinColumn(name = "room_id")
+    @JsonBackReference(value = "reservations")
     private Room room;
 
     @ManyToOne
-    @JoinColumn(name = "guest_id")
-    private Guest guest;
+    @JoinColumn(name = "client_id")
+    @JsonBackReference(value = "client")
+    private Client client;
 
     public LocalDateTime getCreated() {
         return created;
@@ -61,11 +64,11 @@ public class Reservation {
         this.room = room;
     }
 
-    public Guest getGuest() {
-        return guest;
+    public Client getClient() {
+        return client;
     }
 
-    public void setGuest(Guest guest) {
-        this.guest = guest;
+    public void setClient(Client client) {
+        this.client = client;
     }
 }

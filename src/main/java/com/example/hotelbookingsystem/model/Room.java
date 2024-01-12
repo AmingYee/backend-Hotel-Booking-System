@@ -1,15 +1,18 @@
 package com.example.hotelbookingsystem.model;
 
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
     private String roomNumber;
     private int numberOfBeds;
     private LocalDateTime created;
@@ -17,10 +20,12 @@ public class Room {
 
     @ManyToOne
     @JoinColumn(name = "hotel_id")
+    @JsonBackReference(value = "rooms")
     private Hotel hotel;
 
     @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
-    private List<Reservation> reservations;
+    @JsonManagedReference(value = "reservations")
+    private Set<Reservation> reservations = new HashSet<>();
 
     public LocalDateTime getCreated() {
         return created;
@@ -38,11 +43,11 @@ public class Room {
         this.updated = updated;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -70,11 +75,11 @@ public class Room {
         this.hotel = hotel;
     }
 
-    public List<Reservation> getReservations() {
+    public Set<Reservation> getReservations() {
         return reservations;
     }
 
-    public void setReservations(List<Reservation> reservations) {
+    public void setReservations(Set<Reservation> reservations) {
         this.reservations = reservations;
     }
 }
