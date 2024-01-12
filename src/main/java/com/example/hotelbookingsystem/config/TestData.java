@@ -25,7 +25,8 @@ public class TestData implements CommandLineRunner {
     @Override
     @Transactional
     public void run(String... args) {
-        for (int i = 1; i <= 50; i++) {
+        // lower the dummy hotels from 250 if its laggy haven't optimized the calls so it fetches all of them
+        for (int i = 1; i <= 250; i++) {
             Hotel hotel = createDummyHotel("TestHotel nr: " + i);
             hotelRepository.save(hotel);
 
