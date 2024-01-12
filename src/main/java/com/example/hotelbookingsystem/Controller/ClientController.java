@@ -59,4 +59,16 @@ public class ClientController {
             throw new UsernameNotFoundException("invalid user request..!!");
         }
     }
+
+    @GetMapping("/user/id")
+    public ResponseEntity<Integer> getUserIdFromToken(@RequestHeader("Authorization") String jwtToken) {
+        System.out.println("getidcalled");
+        try {
+            int userId = jwtTokenService.extractUserIdFromToken(jwtToken);
+            System.out.println("userId");
+            return ResponseEntity.ok(userId);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
 }

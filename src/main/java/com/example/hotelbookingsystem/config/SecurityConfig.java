@@ -51,6 +51,8 @@ public class SecurityConfig {
                         .requestMatchers("/hotels/**").authenticated()
                         .requestMatchers("/reservations").authenticated()
                         .requestMatchers("/rooms").authenticated()
+                        .requestMatchers("/user/**").authenticated()
+                        .requestMatchers("/client/**").authenticated()
                         .requestMatchers("/new-user", "/login-user").permitAll()
                 )
                 .formLogin(Customizer.withDefaults())

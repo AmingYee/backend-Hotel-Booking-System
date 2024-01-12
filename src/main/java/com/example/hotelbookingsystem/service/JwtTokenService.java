@@ -6,4 +6,5 @@ import org.springframework.stereotype.Service;
 @Service
 public interface JwtTokenService {
     String generateJwtToken(Authentication authentication);
+    public int extractUserIdFromToken(String jwtToken);
 }
