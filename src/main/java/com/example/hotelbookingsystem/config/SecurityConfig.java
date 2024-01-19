@@ -48,6 +48,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests((requests)->requests
                         .requestMatchers("/hotels/delete/**").hasRole("ADMIN")
                         .requestMatchers("/hotels").authenticated()
+                        //TODO: have to look through the documentation for new spring security for new method old antmatchers had method to specify a range of acceptable numbers so a catchall like /** was not needed
                         .requestMatchers("/hotels/**").authenticated()
                         .requestMatchers("/reservation").authenticated()
                         .requestMatchers("/reservation/**").authenticated()

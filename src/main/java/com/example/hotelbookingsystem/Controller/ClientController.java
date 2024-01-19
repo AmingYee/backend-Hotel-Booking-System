@@ -32,6 +32,7 @@ public class ClientController {
     @Autowired
     private JwtTokenService jwtTokenService;
 
+    //TODO: missing logic to deny creation of a new user with same username
     @PostMapping("/new-user")
     public ResponseEntity<?> postUser(@RequestBody Client client){
         try {

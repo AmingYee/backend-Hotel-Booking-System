@@ -37,6 +37,8 @@ public class JwtTokenServiceImpl implements JwtTokenService{
                 .signWith(key)
                 .compact();
     }
+
+    //TODO: this method should be changed to extract principal and include username and authorities too alternativly could change it to a filter that does it automatically
     public int extractUserIdFromToken(String jwtToken) {
         Claims claims = Jwts.parserBuilder()
                 .setSigningKey(Keys.hmacShaKeyFor(SecurityConstants.JWT_KEY.getBytes(StandardCharsets.UTF_8)))
