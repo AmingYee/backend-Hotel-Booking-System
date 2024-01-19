@@ -32,8 +32,10 @@ public class ReservationServiceImpl implements ReservationService{
     }
 
     @Override
-    public Optional<Reservation> createReservation(int roomId, int clientId, Reservation reservation) {
-        if (reservation.getReservationDate() == null) {
+    public Optional<Reservation> createReservation(int roomId, int clientId, LocalDateTime reservationDate) {
+        Reservation reservation = new Reservation();
+
+        if (reservationDate == null) {
             throw new IllegalArgumentException("Invalid reservation data");
         }
 
@@ -45,9 +47,15 @@ public class ReservationServiceImpl implements ReservationService{
 
         reservation.setRoom(room);
         reservation.setClient(client);
+        reservation.setReservationDate(reservationDate);
         reservation.setCreated(LocalDateTime.now());
         reservation.setUpdated(LocalDateTime.now());
 
         return Optional.of(reservationRepository.save(reservation));
+    }
+
+    @Override
+    public void deleteReservation(int reservationId) {
+        reservationRepository.deleteById(reservationId);
     }
 }
